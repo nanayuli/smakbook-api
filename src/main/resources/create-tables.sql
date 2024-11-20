@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS novel_genre, novel_tag, genre, tag, "comment", chapter, volume, novel, author, "user", "role";
+DROP TABLE IF EXISTS novel_genre, novel_tag, genre, tag, "comment", chapter, volume, novel, alternative_title, author, "user", "role";
 DROP TYPE IF EXISTS novel_status, translation_status;
 
 CREATE TYPE novel_status AS ENUM ('скоро', 'видається', 'призупинено', 'завершено');
@@ -37,7 +37,6 @@ CREATE TABLE novel
     translator_id INTEGER REFERENCES "user" (id) NOT NULL,
     cover_image_path VARCHAR(512),
     title VARCHAR(256) NOT NULL,
-    alternative_titles VARCHAR(256)[],
     description TEXT NOT NULL,
     country VARCHAR(64) NOT NULL,
     release_date DATE NOT NULL,
@@ -48,10 +47,19 @@ CREATE TABLE novel
     updated_at TIMESTAMP DEFAULT now()
 );
 
+CREATE TABLE alternative_title
+(
+    id SERIAL PRIMARY KEY,
+    novel_id INTEGER REFERENCES novel (id),
+    name VARCHAR(256) NOT NULL,
+    created_at TIMESTAMP DEFAULT now(),
+    updated_at TIMESTAMP DEFAULT now()
+);
+
 CREATE TABLE volume
 (
     id SERIAL PRIMARY KEY,
-    novel_id INTEGER REFERENCES novel(id) NOT NULL,
+    novel_id INTEGER REFERENCES novel (id) NOT NULL,
     number INTEGER NOT NULL,
     title VARCHAR(128) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
@@ -59,10 +67,10 @@ CREATE TABLE volume
     UNIQUE (novel_id, number)
 );
 
-CREATE TABLE chapter
+CREATE TABLE chapter_comment
 (
     id SERIAL PRIMARY KEY,
-    volume_id INTEGER REFERENCES volume(id) NOT NULL,
+    volume_id INTEGER REFERENCES volume (id) NOT NULL,
     number INTEGER NOT NULL,
     title VARCHAR(256) NOT NULL,
     content TEXT NOT NULL,
@@ -90,23 +98,23 @@ CREATE TABLE tag
 
 CREATE TABLE novel_genre
 (
-    novel_id INTEGER REFERENCES novel(id),
-    genre_id INTEGER REFERENCES genre(id),
+    novel_id INTEGER REFERENCES novel (id),
+    genre_id INTEGER REFERENCES genre (id),
     PRIMARY KEY (novel_id, genre_id)
 );
 
 CREATE TABLE novel_tag
 (
-    novel_id INTEGER REFERENCES novel(id),
-    tag_id INTEGER REFERENCES tag(id),
+    novel_id INTEGER REFERENCES novel (id),
+    tag_id INTEGER REFERENCES tag (id),
     PRIMARY KEY (novel_id, tag_id)
 );
 
 CREATE TABLE "comment"
 (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES "user"(id) NOT NULL,
-    chapter_id INTEGER REFERENCES chapter(id) NOT NULL,
+    user_id INTEGER REFERENCES "user" (id) NOT NULL,
+    chapter_id INTEGER REFERENCES chapter (id) NOT NULL,
     content VARCHAR(512) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
