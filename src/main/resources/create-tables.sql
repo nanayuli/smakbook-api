@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS novel_genre, novel_tag, genre, tag, "comment", chapter, volume, novel, alternative_title, author, "user", "role";
+DROP TABLE IF EXISTS novel_genre, novel_tag, genre, tag, chapter_comment, chapter, volume, novel, alternative_title, author, "user", "role";
 DROP TYPE IF EXISTS novel_status, translation_status;
 
 CREATE TYPE novel_status AS ENUM ('скоро', 'видається', 'призупинено', 'завершено');
@@ -67,7 +67,7 @@ CREATE TABLE volume
     UNIQUE (novel_id, number)
 );
 
-CREATE TABLE chapter_comment
+CREATE TABLE chapter
 (
     id SERIAL PRIMARY KEY,
     volume_id INTEGER REFERENCES volume (id) NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE novel_tag
     PRIMARY KEY (novel_id, tag_id)
 );
 
-CREATE TABLE "comment"
+CREATE TABLE chapter_comment
 (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES "user" (id) NOT NULL,

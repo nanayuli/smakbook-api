@@ -1,8 +1,8 @@
 INSERT INTO "role" (id, name)
 VALUES
-    (1, 'Адміністратор'),
-    (2, 'Перекладач'),
-    (3, 'Користувач');
+    (1, 'ADMIN'),
+    (2, 'TRANSLATOR'),
+    (3, 'READER');
 
 INSERT INTO "user" (id, username, password, role_id)
 VALUES
