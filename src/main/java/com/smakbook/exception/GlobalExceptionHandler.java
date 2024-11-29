@@ -70,6 +70,12 @@ public class GlobalExceptionHandler {
         return getResponse(HttpStatus.CONFLICT, request, message);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException e, WebRequest request) {
+        log.error("Bad request error: {}", e.getMessage());
+        return getResponse(HttpStatus.BAD_REQUEST, request, e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e, WebRequest request) {
         log.error("An unexpected error occurred", e);
