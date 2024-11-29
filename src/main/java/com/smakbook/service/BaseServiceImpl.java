@@ -42,7 +42,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity, ID extends Serializa
 
     @Override
     public void deleteById(ID id) {
-        repository.deleteById(id);
+        T entity = getById(id);
+        repository.delete(entity);
     }
 
     @Override
