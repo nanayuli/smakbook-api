@@ -1,8 +1,4 @@
 DROP TABLE IF EXISTS novel_genre, novel_tag, genre, tag, chapter_comment, chapter, volume, novel, alternative_title, author, "user", "role";
-DROP TYPE IF EXISTS novel_status, translation_status;
-
-CREATE TYPE novel_status AS ENUM ('скоро', 'видається', 'призупинено', 'завершено');
-CREATE TYPE translation_status AS ENUM ('скоро', 'перекладається', 'призупинено', 'завершено');
 
 CREATE TABLE "role"
 (
@@ -40,8 +36,8 @@ CREATE TABLE novel
     description TEXT NOT NULL,
     country VARCHAR(64) NOT NULL,
     release_date DATE NOT NULL,
-    novel_status novel_status NOT NULL,
-    translation_status translation_status NOT NULL,
+    novel_status VARCHAR(64) NOT NULL,
+    translation_status VARCHAR(64) NOT NULL,
     is_published BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()

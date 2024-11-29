@@ -1,5 +1,7 @@
 package com.smakbook.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,5 +20,16 @@ public enum NovelStatus {
     PAUSED("призупинено"),
     COMPLETED("завершено");
 
+    @JsonValue
     private final String dbValue;
+
+    @JsonCreator
+    public static NovelStatus fromDbValue(String dbValue) {
+        for (NovelStatus status : NovelStatus.values()) {
+            if (status.dbValue.equals(dbValue)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Unknown database value: " + dbValue);
+    }
 }

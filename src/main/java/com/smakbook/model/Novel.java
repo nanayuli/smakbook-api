@@ -1,10 +1,11 @@
 package com.smakbook.model;
 
+import com.smakbook.util.NovelStatusConverter;
+import com.smakbook.util.TranslationStatusConverter;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -62,11 +63,11 @@ public class Novel extends BaseEntity {
     private LocalDate releaseDate;
 
     @Column(name = "novel_status")
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = NovelStatusConverter.class)
     private NovelStatus novelStatus;
 
     @Column(name = "translation_status")
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = TranslationStatusConverter.class)
     private TranslationStatus translationStatus;
 
     @Column(name = "is_published")
