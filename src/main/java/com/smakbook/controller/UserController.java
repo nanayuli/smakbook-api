@@ -10,7 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  * @author Yuliana
@@ -27,10 +34,23 @@ public class UserController {
     private final UserServiceImpl service;
     private final UserMapper mapper;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getById(@PathVariable Integer id) {
+        User user = service.getById(id);
+        return new ResponseEntity<>(mapper.toResponse(user), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("#id == authentication.principal.id")
     public ResponseEntity<UserResponse> update(@PathVariable Integer id, @Valid @RequestBody UserSaveRequest request) {
         User user = service.updateOwnProfile(id, request);
         return new ResponseEntity<>(mapper.toResponse(user), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("#id == authentication.principal.id")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
