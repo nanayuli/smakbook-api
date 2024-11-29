@@ -3,6 +3,8 @@ package com.smakbook.repository;
 import com.smakbook.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * @author Yuliana
  * @version 1.0.0
@@ -12,4 +14,6 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public interface UserRepository extends BaseRepository<User, Integer> {
+    Optional<User> findByUsername(String username);
+    boolean existsByUsername(String username);
 }
