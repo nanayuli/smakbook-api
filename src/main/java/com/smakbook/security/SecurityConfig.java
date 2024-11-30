@@ -70,7 +70,7 @@ public class SecurityConfig {
                         .addLogoutHandler(logoutHandler)
                         .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/**", "/api/authors/", "/api/novels/**", "/api/chapters/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/authors/**", "/api/novels/**", "/api/chapters/**", "/api/genres/**", "/api/tags/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/translator/**").hasRole("TRANSLATOR")
                         .anyRequest().authenticated());
