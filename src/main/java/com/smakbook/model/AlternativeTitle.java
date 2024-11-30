@@ -23,5 +23,5 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @ToString(callSuper = true)
 public class AlternativeTitle extends BaseEntity {
-    private String title;
+    private String name;
 }
