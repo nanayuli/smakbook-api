@@ -1,6 +1,7 @@
 package com.smakbook.model;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -31,8 +32,13 @@ public class Chapter extends BaseEntity {
     @JoinColumn(name = "volume_id")
     private Volume volume;
 
+    private Integer number;
+
     private String title;
 
     @Basic(fetch = FetchType.LAZY)
     private String content;
+
+    @Column(name = "is_published")
+    private boolean isPublished;
 }
