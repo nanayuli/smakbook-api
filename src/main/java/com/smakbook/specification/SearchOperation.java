@@ -15,4 +15,5 @@ public enum SearchOperation {
     CONTAINS,       // CONTAINS '%value%'
     STARTS_WITH,    // CONTAINS 'value%'
     ENDS_WITH,      // CONTAINS '%value'
+    IN              // IN (value1, value2, ...)
 }

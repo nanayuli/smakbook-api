@@ -3,6 +3,8 @@ package com.smakbook.repository;
 import com.smakbook.model.Volume;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Yuliana
  * @version 1.0.0
@@ -12,4 +14,5 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public interface VolumeRepository extends BaseRepository<Volume, Integer> {
+    List<Volume> findByNovelId(Integer novelId);
 }

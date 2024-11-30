@@ -4,6 +4,8 @@ import com.smakbook.model.Volume;
 import com.smakbook.repository.VolumeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Yuliana
  * @version 1.0.0
@@ -13,7 +15,14 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class VolumeServiceImpl extends BaseServiceImpl<Volume, Integer> {
+    private final VolumeRepository repository;
+
     public VolumeServiceImpl(VolumeRepository repository) {
         super(repository, Volume.class);
+        this.repository = repository;
+    }
+
+    public List<Volume> getByNovelId(Integer id) {
+        return repository.findByNovelId(id);
     }
 }

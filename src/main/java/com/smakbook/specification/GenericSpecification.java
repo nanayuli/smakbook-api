@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -84,6 +85,13 @@ public class GenericSpecification<T> implements Specification<T> {
                         predicates.add(criteriaBuilder.like(criteriaBuilder.lower(path.as(String.class)), pattern));
                     } else {
                         throw new IllegalArgumentException("Field " + key + " is not of type String for " + criteria.getOperation() + " operation");
+                    }
+                    break;
+                case IN:
+                    if (value instanceof Collection) {
+                        predicates.add(path.in((Collection<?>) value));
+                    } else {
+                        throw new IllegalArgumentException("Value for IN operation must be a collection");
                     }
                     break;
                 default:

@@ -1,6 +1,7 @@
 package com.smakbook.mapper;
 
 import com.smakbook.dto.user.UserResponse;
+import com.smakbook.dto.user.UserShortResponse;
 import com.smakbook.model.User;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,13 @@ public class UserMapper {
         response.setId(entity.getId());
         response.setUsername(entity.getUsername());
         response.setRole(entity.getRole().getName());
+        return response;
+    }
+
+    public UserShortResponse toShortResponse(User entity) {
+        UserShortResponse response = new UserShortResponse();
+        response.setId(entity.getId());
+        response.setUsername(entity.getUsername());
         return response;
     }
 }
