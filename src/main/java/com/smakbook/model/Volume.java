@@ -31,4 +31,6 @@ public class Volume extends BaseEntity {
     private Novel novel;
 
     private String title;
+
+    private Integer number;
 }
